@@ -1,0 +1,242 @@
+
+
+body{
+    background-color: #424B54;
+}
+
+
+// tinha header aqui
+
+#inimigo, #jogador, #mesaJogo{
+    width: 100%;
+    display: block;
+}
+
+
+#jogador{
+    position: absolute;
+    bottom: 2%;
+}
+
+#jogador, #inimigo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6vw;
+    height: 12%;
+}
+
+
+#main{
+    /* tudo centralizado */
+    height: 100%;
+    overflow: hidden;
+    margin:  0 auto;
+    max-width: 650px;
+    background-color: #424B54;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+}
+
+
+
+.barraVida{
+    width: 100%;
+    height: 8vh;
+    background-color: #305B65;
+    display: block;
+    margin: 0 10vh 0 0;
+    border-radius: 5px;
+    
+    
+}
+
+.vida{
+    background-color: #087E8B;
+    display: block;
+    border-radius: 5px;
+    height: 100%;
+}
+
+/* editar porcentagem de vida = editar width */
+#vidaInimigo{
+    width: 100%;
+}
+
+#vidaJogador{
+    width: 100%;
+}
+
+.infoVida{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.infoVida > *{
+    margin: 1.5vh;
+    font-size: calc(11pt + 0.4vh);
+
+}
+
+
+
+#nomeInimigo, #nomeJogador{
+    margin-right:auto;
+}
+
+.cartasTrap{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: absolute;
+    right: 0;
+}
+
+#mesaJogo{
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#inimTrap1, #carta1{
+    transform: rotate(-15deg);
+}
+
+#inimTrap2, #carta2{
+    z-index: 1;
+}
+
+#inimTrap3, #carta3{
+    transform: rotate(15deg);
+    z-index: 2;
+
+}
+
+.cartaVirada, .baralho{
+    background-color: #FFA0A3;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, #FF5A5F 8px, #FF5A5F 15px);
+    border: 5px solid #FF5A5F;
+    
+    width: 20vh;
+    height: 28vh;
+    /*margin: 2vh 2vw;*/
+    border-radius: 5%;
+    display: inline-block;
+}
+
+.baralho{
+    flex: 0 0 50%;
+    margin: 2vh 2vw;
+}
+
+#contador{
+    text-align: center;
+    font-size: calc(13pt + 1vh);
+}
+
+.cartaVirada, .cartaJogador{
+    box-shadow: 0 0 10px #000;
+    width: 4vh!important;
+    height: 6vh!important;
+    margin: 0 0 0 -25%!important;
+}
+
+
+#cartaPilha, .cartaJogador, .cartaJogador span{
+    width: 20vh;
+    height: 28vh;
+    margin: 2vh 2vw;
+    border: 3px solid white;
+    background-color: white;
+    border-radius: 5%;
+    font-size: calc(5pt + 0.4vh);
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cartaPilha, .baralho{
+    display: inline-block;
+    max-width: 145px;
+    max-height: 210px;
+}
+
+#cartaPilha {
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover; 
+}
+
+.semCarta{
+    opacity: 15%;
+}
+
+.comCarta {
+    background-color: transparent!important;
+    border: none!important;
+}
+
+
+.podeClicar:hover{
+    opacity: 70%;
+}
+
+.podeClicar{
+    padding: 6vh 4vh;
+    box-shadow: 0 0 2em #FF5A5F;
+    background-color: #ffabad;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, #ff7d81 8px, #ff7d81 15px);
+    border-color: #ff7d81;
+}
+
+#info-hover{
+    display:none;
+}
+
+.cartasTrap:hover + #info-hover{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 99; // sempre acima de tudo
+}
+
+.cartasTrapJogador:hover{
+    opacity: 50%;
+}
+
+.descCarta{
+    background-color: white;
+    display: block;
+    padding: 5%;
+    width: 60%;
+    max-width: 640px;
+    height: 20%;
+    line-height: 20%;
+    text-align: center;
+    border-radius: 5%;
+    box-shadow: 0 0 10px #000;
+
+}
+
+.descCarta span{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    color: black;
+
+}

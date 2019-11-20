@@ -1,0 +1,43 @@
+<div id="main">
+    <div id="inimigo">
+        <div class="barraVida">
+            <div class="vida" id="vidaInimigo">
+                    <div class="infoVida" id="infoInimigo"><i class="fas fa-heart"></i><span id="nomeInimigo">Beltrano</span><span id="vidaInimigoNum">{{vidaInimigo}}</span></div>
+            </div>
+        </div>
+  
+        <div class="cartasTrap">
+            <div class="cartaVirada" id="inimTrap1"></div>
+            <div class="cartaVirada" id="inimTrap2"></div>
+            <div class="cartaVirada" id="inimTrap3"></div>
+        </div>
+    </div>
+        
+        
+    <div id="mesaJogo">
+        <div id="contador">Contador: 0</div>
+        <div id="cartaPilha" class="semCarta" (click)= "clicouPilha(true)"></div>
+        <div id="monteCartas" class="baralho podeClicar" (click)="clicouBaralho()"></div>
+    </div>
+  
+    <div id="jogador">
+        <div class="barraVida">
+            <div class="vida" id="vidaJogador">
+                <div class="infoVida" id="infoJogador"><i class="fas fa-heart"></i><span id="nomeJogador">Fulano</span><span id="vidaJogadorNum">{{vidaPlayer}}</span></div>
+            </div>
+        </div>
+  
+        <div class="cartasTrap cartasTrapJogador">
+            <div class="cartaJogador" id="carta1">...</div>
+            <div class="cartaJogador" id="carta2">...</div>
+            <div class="cartaJogador" id="carta3">...</div>        
+        </div>
+
+        <div id="info-hover">
+            <div id="info-carta-1" class="descCarta"><span>BLABLABLA aaaaaa aa aaa aaa a a a aaaaa aa</span></div>
+            <div id="info-carta-2" class="descCarta"><span>BLABLABLA 2 aaaaaa aa aaa aaa a a a aaaaa aa</span></div>
+            <div id="info-carta-3" class="descCarta"><span>BLABLABLA 2 aaaaaa aa aaa aaa a a a aaaaa aa</span></div>
+        </div>
+    </div>
+  
+</div>

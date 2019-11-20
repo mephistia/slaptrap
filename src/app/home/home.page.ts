@@ -7,6 +7,14 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  // cria variaveis
+  constructor() {
+
+    // atribui valores
+
+  }
+
+
+  // coloca funções
 
 }

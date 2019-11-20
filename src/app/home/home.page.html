@@ -1,14 +1,49 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  
+    <div id="main">
+           
+      <div id="topo">
+          <div id="opt"><ion-icon name="settings" class="greyIcon"></ion-icon></div>
+          <div id="logo"><img src="https://i.ibb.co/k8P41Qy/slaptraplogo.png" alt="Logo SlapTrap"></div>
+          <div class="separator"></div>
+      </div>
+
+      <div id="inimigo">
+          <div class="barraVida">
+              <div class="vida" id="vidaInimigo">
+                      <div class="infoVida" id="infoInimigo"><i class="fas fa-heart"></i><span id="nomeInimigo">Beltrano</span><span id="vidaInimigoNum">100</span></div>
+              </div>
+          </div>
+
+          <div class="cartasTrap">
+              <div class="cartaVirada" id="inimTrap1"></div>
+              <div class="cartaVirada" id="inimTrap2"></div>
+              <div class="cartaVirada" id="inimTrap3"></div>
+          </div>
+      </div>
+      
+      
+      <div id="mesaJogo">
+          <div id="contador">Contador: n</div>
+          <div id="cartaPilha" class="semCarta"></div>
+          <div class="baralho podeClicar"></div>
+      </div>
+
+      <div id="jogador">
+          <div class="barraVida">
+              <div class="vida" id="vidaJogador">
+                      <div class="infoVida" id="infoJogador"><i class="fas fa-heart"></i><span id="nomeJogador">Fulano</span><span id="vidaJogadorNum">100</span></div>
+              </div>
+          </div>
+
+          <div class="cartasTrap">
+                  <div class="cartaJogador" id="carta1">...</div>
+                  <div class="cartaJogador" id="carta2">...</div>
+                  <div class="cartaJogador" id="carta3">...</div>
+              </div>
+      </div>
+
   </div>
+
 </ion-content>

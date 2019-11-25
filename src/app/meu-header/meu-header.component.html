@@ -1,7 +1,17 @@
 <div id="main">
-    <div id="topo">
-        <div id="opt"><ion-icon name="settings" class="greyIcon"></ion-icon></div>
+    <div class="topo">
+        <div id="opt" (click)="carregaOpcoes()"><ion-icon name="settings" class="greyIcon"></ion-icon></div>
         <div id="logo"><img src="https://i.ibb.co/k8P41Qy/slaptraplogo.png" alt="Logo SlapTrap"></div>
         <div class="separator"></div>
     </div>
+</div>
+
+<div id="telaOpcoes" class="inactive">
+    <div class="topo">
+        <div id="logo"><img src="https://i.ibb.co/k8P41Qy/slaptraplogo.png" alt="Logo SlapTrap"></div>
+        <div class="separatorFrase">Opções</div>
+    </div>
+
+    <div class="btnGrande" id="classificar"><ion-icon name="star"></ion-icon>Classificar o Jogo</div>
+
 </div>

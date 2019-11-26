@@ -1,3 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+@font-face { font-family: "Ionicons"; src: url("https://code.ionicframework.com/ionicons/2.0.1/fonts/ionicons.eot?v=2.0.1"); src: url("https://code.ionicframework.com/ionicons/2.0.1/fonts/ionicons.eot?v=2.0.1#iefix") format("embedded-opentype"), url("https://code.ionicframework.com/ionicons/2.0.1/fonts/ionicons.ttf?v=2.0.1") format("truetype"), url("https://code.ionicframework.com/ionicons/2.0.1/fonts/ionicons.woff?v=2.0.1") format("woff"), url("https://code.ionicframework.com/ionicons/2.0.1/fonts/ionicons.svg?v=2.0.1#Ionicons") format("svg"); font-weight: normal; font-style: normal; }
+
 #main, #telaOpcoes{
     /* tudo centralizado */
     overflow: hidden;
@@ -9,6 +13,9 @@
     position: relative;
 }
 
+#telaOpcoes{
+    height: 100%;
+}
 
 
 .separator, .separatorFrase {
@@ -76,12 +83,48 @@
 }
 
 .btnGrande{
-    padding: 3em;
-    background-color: #FF5A5F;
-    margin: 1.5vh 5%;
-    border-radius: 5%;
+    padding: 1.5rem 1rem;
+    font-size: calc(9pt + 1vh);   
+    max-width: 75%;
+    display: flex;
+    align-content: center;
+    justify-content: end;
 
 }
+
+#classificar::before{
+    font-family: "Ionicons";
+    content: "\f2fc";
+    float: left;
+}
+
+#sairConta::before{
+    font-family: "Ionicons";
+    content: "\f108";
+    float: left;
+}
+
+.btnMedio, .btnGrande{
+    background-color: #FF5A5F;
+    margin: 2.5vh auto;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.btnMedio{
+    padding: 1rem;
+    font-size: calc(8pt + 1vh);
+    max-width: 60%;
+}
+
+#textoSobre p{
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    margin: 6vh;
+    text-align: justify;
+}
+
 
 @media screen and (min-width: 1440px) {
     .separator::before, .separator::after, .separatorFrase::before, .separatorFrase::after{

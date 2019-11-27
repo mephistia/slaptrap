@@ -33,10 +33,10 @@
             <div class="cartaJogador" id="carta3">...</div>        
         </div>
 
-        <div id="info-hover">
-            <div id="info-carta-1" class="descCarta"><span>BLABLABLA aaaaaa aa aaa aaa a a a aaaaa aa</span></div>
-            <div id="info-carta-2" class="descCarta"><span>BLABLABLA 2 aaaaaa aa aaa aaa a a a aaaaa aa</span></div>
-            <div id="info-carta-3" class="descCarta"><span>BLABLABLA 2 aaaaaa aa aaa aaa a a a aaaaa aa</span></div>
+        <div id="info-hover" *ngIf="messageService.messages.lenght">
+            <div id="info-carta-1" class="descCarta"><span>{{messageService.message[0]}}</span></div>
+            <div id="info-carta-2" class="descCarta"><span>{{messageService.message[1]}}</span></div>
+            <div id="info-carta-3" class="descCarta"><span>{{messageService.message[2]}}</span></div>
         </div>
     </div>
   

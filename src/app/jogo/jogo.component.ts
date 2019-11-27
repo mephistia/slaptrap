@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Baralho} from '../baralho';
+import  {Baralho } from '../baralho';
 import { Carta } from '../carta';
-import {Valor} from '../carta';
+import { Valor } from '../carta';
+import { PlayerService } from '../player.service';
+import { Player } from '../player';
+import { MessageService } from '../message.service';
+
 
 @Component({
   selector: 'app-jogo',
@@ -15,6 +19,8 @@ export class JogoComponent implements OnInit {
   // declara variaveis
 
   // monte jogável
+  player1: Player;
+  messages: string[];
   Monte: Baralho;
   cartaAtual: Carta;
   turnoPlayer: boolean;
@@ -27,7 +33,7 @@ export class JogoComponent implements OnInit {
   //                                       ^
   //                                       |
   // atribui valores                       |
-  constructor() {  //                      |
+  constructor(private playerService: PlayerService, public messageService: MessageService) {  //                      |
     this.versusPC = true;     // para testes   
     this.Monte = new Baralho;
     this.cartaAtual = null; //começa sem carta
@@ -40,10 +46,14 @@ export class JogoComponent implements OnInit {
   }
 
 
+  getPlayer1(): void{
+    this.playerService.getPlayer().subscribe(player => {this.player1 = player});
+  }
 
   ngOnInit() {
     // mostrar as cartas na tela (teste)
     console.log(this.Monte.toString());
+    this.getPlayer1(); // pega o mock do player
 
     // se estiver jogando contra pc
     if (this.versusPC){

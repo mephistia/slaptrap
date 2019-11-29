@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import  {Baralho } from '../baralho';
-import { Carta } from '../carta';
+import { Carta, Naipe } from '../carta';
 import { Valor } from '../carta';
 import { PlayerService } from '../player.service';
 import { Player } from '../player';
 import { MessageService } from '../message.service';
+import { todasCA } from '../todasCA';
+import { cartaArmadilha } from '../cartaArmadilha';
 
 
 @Component({
@@ -16,11 +18,12 @@ import { MessageService } from '../message.service';
 
 
 export class JogoComponent implements OnInit {
-  // declara variaveis
+  // cartas para pc
+  todasCartas: todasCA = new todasCA;
+  cartasPC: cartaArmadilha[] = [];
 
   // monte jogável
   player1: Player;
-  messages: string[];
   Monte: Baralho;
   cartaAtual: Carta;
   turnoPlayer: boolean;
@@ -29,6 +32,7 @@ export class JogoComponent implements OnInit {
   vidaPlayer: number;
   vidaInimigo: number;
   cartasPilha: number;
+  foiJogador: boolean;
   versusPC: boolean; // importa da seleção do menu
   //                                       ^
   //                                       |
@@ -51,24 +55,42 @@ export class JogoComponent implements OnInit {
   }
 
   ngOnInit() {
-    // mostrar as cartas na tela (teste)
-    console.log(this.Monte.toString());
-    this.getPlayer1(); // pega o mock do player
+
+    this.getPlayer1(); // pega o player
 
     // se estiver jogando contra pc
     if (this.versusPC){
+
+      let numCarta: number;
+
+      // para as 3 cartas armadilha
+      for (let i: number = 0; i < 3; i++){
+        
+        do { // sortear um numero
+          numCarta = this.randomEntre(0,4);
+        }
+        // enquanto já existir esse numero na carta
+        while (this.cartasPC.includes(this.todasCartas.cartas[numCarta]));
+
+        // e então atribuir
+        this.cartasPC[i] = this.todasCartas.cartas[numCarta];
+        console.log("Carta PC " + i + ": " + this.cartasPC[i]);        
+      }
+
+
       this.turnoPlayer = true; // começa pela vez do jogador
-    }    
+    }
+    
   }
 
   gameOver(){
-    // chama a tela de resultados (pode ser Div em cima)
+    // chama a tela de resultados 
   }
 
 
   reset(){
     // só reseta se a vida for maior que 0
-    if (this.vidaInimigo > 0 && this.vidaPlayer > 0){
+    if (this.vidaInimigo > 0 && this.vidaPlayer > 0) {
       this.cartaAtual = null; //começa sem carta
       this.turnoPlayer = true;
       this.caminhoCartaAtual = "";
@@ -111,18 +133,61 @@ export class JogoComponent implements OnInit {
 
         // se retorna válido e não foi jogador que clicou
         if (this.clicouPilha(false)) {
-          // ataca
-          console.log("PC ataca! Resetar a contagem e embaralhar tudo de novo");
           // checar cartas-armadilha
+        let entrouArmadilha: boolean = false;
+        console.log("Jogador clicou na pilha!");
+
+        for (let i:number = 0; i < 3; i++){
+          // se pode usar a carta
+          if (this.cartasPC[i].canUse){
+            console.log("A carta " + i + " pode ser usada. Armadilha está satisfeita?" + this.checarArmadilhas2(i));
+
+            if (this.checarArmadilhas2(i)){ // se ela pode ser ativada agora
+
+              // adicionar o ataque do PC
+              if (this.cartasPC[i].jogadorAtaca){ // "jogador" aqui é o pc, que ataca o jogador em si
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 2;
+                this.vidaPlayer -= ataque;
+                document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";  
+              }
+            
+              // se ataca a si mesmo:
+              if (this.cartasPC[i].inimAtaca){ // inimigo nesse caso é o player
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 2;
+                this.vidaInimigo -= ataque;
+                document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";  
+              }
+
+              this.cartasPC[i].canUse = false; // não pode mais usar a carta
+
+              entrouArmadilha = true;
+              console.log("Entrou na carta Armadilha: " + this.cartasPC[i].desc);
+
+              // mostrar feedback
+              this.mostrarCartaUsada(2,i);
+              window.setTimeout(()=>{this.esconder("popup");},2500);
+              // deixar this.trasparente("info-carta-x") do inimigo/pc
+
+              break; // só uma carta ativa por vez
+            }
+          }
+        }
 
           // se não...
-          let ataque = this.cartasPilha * 2;
-          this.vidaPlayer -= ataque;
-          document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";
+          if (!entrouArmadilha && this.contador == <number>this.cartaAtual.valor){
+            let ataque = this.cartasPilha * 2;
+            this.vidaPlayer -= ataque;
+            document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%"; // diminui barra da vida
+  
+          }
+
           this.reset();
+    
           return true;
 
         }
+
+
       }, espera);
 
 
@@ -137,7 +202,53 @@ export class JogoComponent implements OnInit {
 
           // se retorna válido e não foi jogador que clicou
           if (this.clicouPilha(false)) {
-            console.log("PC clicou inválido! Checar armadilhas...");
+                     // checar cartas-armadilha
+        let entrouArmadilha: boolean = false;
+        console.log("Jogador clicou na pilha!");
+
+        for (let i:number = 0; i < 3; i++){
+          // se pode usar a carta
+          if (this.cartasPC[i].canUse){
+            console.log("A carta " + i + " pode ser usada. Armadilha está satisfeita?" + this.checarArmadilhas2(i));
+
+            if (this.checarArmadilhas2(i)){ // se ela pode ser ativada agora
+
+              // adicionar o ataque do PC
+              if (this.cartasPC[i].jogadorAtaca){ // "jogador" aqui é o pc, que ataca o jogador em si
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 2;
+                this.vidaPlayer -= ataque;
+                document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";  
+              }
+            
+              // se ataca a si mesmo:
+              if (this.cartasPC[i].inimAtaca){ // inimigo nesse caso é o player
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 2;
+                this.vidaInimigo -= ataque;
+                document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";  
+              }
+
+              this.cartasPC[i].canUse = false; // não pode mais usar a carta
+
+              entrouArmadilha = true;
+              console.log("Entrou na carta Armadilha: " + this.cartasPC[i].desc);
+              
+              // mostrar feedback
+              this.mostrarCartaUsada(2,i);
+              window.setTimeout(()=>{this.esconder("popup");},2500);
+              // deixar this.trasparente("info-carta-x") do inimigo/pc
+
+              break; // só uma carta ativa por vez
+            }
+          }
+        }
+
+          // se não...
+          if (!entrouArmadilha && this.contador == <number>this.cartaAtual.valor){
+            let ataque = this.cartasPilha * 2;
+            this.vidaPlayer -= ataque;
+            document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%"; // diminui barra da vida
+  
+          }
             this.reset();
             return true;
           }
@@ -157,33 +268,26 @@ export class JogoComponent implements OnInit {
     // se não for o turno do jogador
     if (!this.turnoPlayer){
 
-      // se a primeira tentativa não bateu
+      // se na primeira tentativa não bateu
       if (!this.tentarBater()){
-        console.log("Não bateu na primeira");
-      }
-      else 
-      console.log("Bateu na primeira");
+             // gerar um tempo aleatorio para retirar nova carta
+             let espera:number = this.randomEntre(800,1600);
 
-        // gerar um tempo aleatorio para retirar nova carta
-        let espera:number = this.randomEntre(800,1600);
-
-        // comprar carta sempre depois de tentar bater
-        setTimeout(() => {
-          this.compraEMostra();
-          // dá a vez pro jogador
-          this.turnoPlayer = true;
-          document.getElementById("monteCartas").classList.add("podeClicar");
-
-          // tenta de novo
-          if (!this.tentarBater()){
-            console.log("Não bateu na segunda");
-          }
-          else 
-          console.log("Bateu na segunda");
-    
-
-        }, espera);
-
+             // comprar carta sempre depois de tentar bater
+             setTimeout(() => {
+               this.compraEMostra();
+               // dá a vez pro jogador
+               this.turnoPlayer = true;
+               document.getElementById("monteCartas").classList.add("podeClicar");
+     
+               // tenta de novo
+               if (!this.tentarBater()){
+                 console.log("Não bateu");
+               }       
+     
+             }, espera);
+     
+      } 
       
     }
   }
@@ -209,6 +313,7 @@ export class JogoComponent implements OnInit {
 
     else {
       console.log("Não pode clicar!");
+      // tocar um som?
     }
 
   }
@@ -276,11 +381,14 @@ export class JogoComponent implements OnInit {
   // quando clicar na pilha, retornar se é válido ou não
   clicouPilha(foiJogador:boolean):boolean{
 
+    
     if (foiJogador){
       console.log("Jogador tentou clicar");
+      this.foiJogador = true;
     }
     else {
       console.log("PC tentou clicar");
+      this.foiJogador = false;
     }
 
     // se tiver classe "clicável"
@@ -289,9 +397,54 @@ export class JogoComponent implements OnInit {
       
       if (foiJogador) {
         // checar cartas-armadilha
+        let entrouArmadilha: boolean = false;
+        console.log("Jogador clicou na pilha!");
 
-        // se não...
-        if (this.contador == <number>this.cartaAtual.valor){
+        for (let i:number = 0; i < 3; i++){
+          // se pode usar a carta
+          if (this.player1.cartasEquipadas[i].canUse){
+            console.log("A carta " + i + " pode ser usada. Armadilha está satisfeita?" + this.checarArmadilhas(i));
+
+            if (this.checarArmadilhas(i)){ // se ela pode ser ativada agora
+
+              // adicionar o ataque do jogador
+              if (this.player1.cartasEquipadas[i].jogadorAtaca){
+                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 2;
+                this.vidaInimigo -= ataque;
+                document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";  
+              }
+            
+              // se ataca a si mesmo:
+              if (this.player1.cartasEquipadas[i].inimAtaca){
+                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 2;
+                this.vidaPlayer -= ataque;
+                document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";  
+              }
+
+              this.player1.cartasEquipadas[i].canUse = false; // não pode mais usar a carta
+
+              entrouArmadilha = true;
+              console.log("Entrou na carta Armadilha: " + this.player1.cartasEquipadas[i].desc);
+                  
+              // mostrar feedback
+              this.mostrarCartaUsada(1,i);
+              window.setTimeout(()=>{this.esconder("popup");},2500);
+              
+              // deixar a carta transparente
+              let info:string;
+              info = "info-carta-" + (i+1);
+              this.transparente(info);
+              
+
+              break; // só uma carta ativa por vez
+            }
+          }
+        }
+
+
+
+        // se não entrar...
+        if (!entrouArmadilha && this.contador == <number>this.cartaAtual.valor){
           
         let ataque = this.cartasPilha * 2;
         this.vidaInimigo -= ataque;
@@ -311,9 +464,192 @@ export class JogoComponent implements OnInit {
 
   }
 
+  // checar se a carta armadilha do numero é ativada quando o JOGADOR jogar
+  checarArmadilhas(num:number): boolean{
+     // pegar os valores
+     let inimJogou: boolean = this.player1.cartasEquipadas[num].inimJogou;
+     let cartaEDoNaipe: Naipe = this.player1.cartasEquipadas[num].temNaipe; // se for null, não precisa de naipe
+     let temNaipe: boolean = true;
+     if (cartaEDoNaipe == null) { temNaipe = false; }
+     
+     let cartaEDoValor: Valor = this.player1.cartasEquipadas[num].temValor; // se for null..
+     let temValor: boolean = true;
+     if (cartaEDoValor == null){ temValor = false;}
+
+     let cartaValida: boolean = this.player1.cartasEquipadas[num].cartaValida; // precisa bater carta válida?
+     let cartaBatidaValida: boolean; // a que bateu foi válida?
+
+     // se precisa ser válida e for do mesmo número, então a batida foi válida
+     if (cartaValida && this.contador == <number>this.cartaAtual.valor){ cartaBatidaValida = true;}
+
+     // se não precisa ser válida, pode quaquer uma
+     else { cartaBatidaValida = false}
+
+     // se a carta ativar quando o nosso inimigo bater
+     if (inimJogou){
+      if (
+        !this.foiJogador &&
+        !temNaipe && // se nao iguala no naipe, iguala no valor
+        cartaEDoValor == this.cartaAtual.valor &&
+        cartaValida == cartaBatidaValida // serve tanto para as duas true quanto para as duas false          
+        ){ 
+          return true; 
+        }
+
+      else if (
+        !this.foiJogador &&  
+        !temValor && // se não iguala no valor, iguala no naipe
+        cartaEDoNaipe == this.cartaAtual.naipe &&
+        cartaValida == cartaBatidaValida
+      ) {
+        return true;
+      }
+
+      // se não confere:
+      else { return false; }
+
+    }
+
+    // se a carta ativar quando o jogador mesmo bater
+    else {
+      if (
+        this.foiJogador &&
+        !temNaipe &&
+        cartaEDoValor == this.cartaAtual.valor &&
+        cartaValida == cartaBatidaValida
+      ) {
+        return true;
+      }
+
+      else if (
+        this.foiJogador &&
+        !temValor &&
+        cartaEDoNaipe == this.cartaAtual.naipe &&
+        cartaValida == cartaBatidaValida
+      ) {
+        return true;
+      }
+
+      else { return false; }
+
+    }
+
+
+  }
+
+  // checa se a carta armadilha do número é ativada quando o PC/JOGADOR2 jogar
+  checarArmadilhas2(num: number): boolean{
+    // conferir cartas do pc ou player 2
+    // pegar os valores
+    let inimJogou: boolean = this.cartasPC[num].inimJogou;
+    let cartaEDoNaipe: Naipe = this.cartasPC[num].temNaipe; // se for null, não precisa de naipe
+    let temNaipe: boolean = true;
+    if (cartaEDoNaipe == null) { temNaipe = false; }
+     
+    let cartaEDoValor: Valor = this.cartasPC[num].temValor; // se for null..
+    let temValor: boolean = true;
+    if (cartaEDoValor == null){ temValor = false;}
+
+    let cartaValida: boolean = this.cartasPC[num].cartaValida; // precisa bater carta válida?
+    let cartaBatidaValida: boolean; // a que bateu foi válida?
+
+    // se precisa ser válida e for do mesmo número, então a batida foi válida
+    if (cartaValida && this.contador == <number>this.cartaAtual.valor){ cartaBatidaValida = true;}
+
+    // se não precisa ser válida, pode quaquer uma
+    else { cartaBatidaValida = false}
+
+
+    if (this.versusPC){ // se foi PC ou outro jogador...
+
+      // se a carta do pc ativar quando o jogador bater (jogador é inimigo do PC)
+      if (inimJogou){
+        if (
+          this.foiJogador &&
+          !temNaipe && // se nao iguala no naipe, iguala no valor
+          cartaEDoValor == this.cartaAtual.valor &&
+          cartaValida == cartaBatidaValida // serve tanto para as duas true quanto para as duas false          
+          ){ 
+            return true; 
+          }
+
+        else if (
+          this.foiJogador &&  
+          !temValor && // se não iguala no valor, iguala no naipe
+          cartaEDoNaipe == this.cartaAtual.naipe &&
+          cartaValida == cartaBatidaValida
+        ) {
+          return true;
+        }
+
+        // se não confere:
+        else { return false; }
+
+      }
+
+      // se a carta do pc ativar quando o PC mesmo bater:
+      else {
+        if (
+          !this.foiJogador &&
+          !temNaipe &&
+          cartaEDoValor == this.cartaAtual.valor &&
+          cartaValida == cartaBatidaValida
+        ) {
+          return true;
+        }
+
+        else if (
+          !this.foiJogador &&
+          !temValor &&
+          cartaEDoNaipe == this.cartaAtual.naipe &&
+          cartaValida == cartaBatidaValida
+        ) {
+          return true;
+        }
+
+        else { return false; }
+
+      }
+
+
+    }
+
+  }
+
 
   randomEntre(min, max): number { 
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
+
+  mostrarCartaUsada(Player1ou2: number, numCarta: number){ 
+    // pega o elemento de "pop-up" e mostra a descrição da carta
+    if (Player1ou2 == 1){
+      document.getElementById("popup").innerHTML = '<span style="color: black;">' + this.player1.cartasEquipadas[numCarta].desc + '</span>';
+    }
+    else {
+      document.getElementById("popup").innerHTML = '<span style="color: black;">' + this.cartasPC[numCarta].desc + '</span>';
+    }
+
+    this.mostrar("popup");
+  }
+
+  // usar com setTimeout
+  esconder(elementID: string){
+    document.getElementById(elementID).classList.add("inactive");
+  }
+
+  transparente(elementID: string){
+    document.getElementById(elementID).classList.add("transparent");
+  }
+
+  mostrar(elementID: string){
+    document.getElementById(elementID).classList.remove("inactive");
+  }
+
+  opaco(elementID: string){
+    document.getElementById(elementID).classList.remove("transparent");
+  }
+
 
 }

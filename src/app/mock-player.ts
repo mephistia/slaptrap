@@ -19,8 +19,4 @@ for (let i:number = 0; i < PLAYER.cartasEquipadas.length; i++){
     PLAYER.cartasInventario[i].isOwned = true;
   }
 
-console.log("Cartas no inventário: " + PLAYER.cartasInventario.toString() + ", Cartas Equipadas: " + PLAYER.cartasEquipadas.toString());
 
-
-console.log("Equipadas Mesmo?: " + PLAYER.cartasEquipadas.filter( carta => carta.isEquipped));
-console.log("Possuídas mesmo?: " + PLAYER.cartasInventario.filter( carta => carta.isOwned));

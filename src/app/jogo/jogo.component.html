@@ -33,11 +33,20 @@
             <div class="cartaJogador" id="carta3">...</div>        
         </div>
 
-        <div id="info-hover" *ngIf="messageService.messages.lenght">
-            <div id="info-carta-1" class="descCarta"><span>{{messageService.message[0]}}</span></div>
-            <div id="info-carta-2" class="descCarta"><span>{{messageService.message[1]}}</span></div>
-            <div id="info-carta-3" class="descCarta"><span>{{messageService.message[2]}}</span></div>
+        <div id="info-hover">
+
+                <!-- Deve ficar transparente ao ser usada: -->
+            <div id="info-carta-1" class="descCarta"><span>{{messageService.messages[0]}}</span></div> 
+            <div id="info-carta-2" class="descCarta"><span>{{messageService.messages[1]}}</span></div>
+            <div id="info-carta-3" class="descCarta"><span>{{messageService.messages[2]}}</span></div>
+
+
         </div>
     </div>
-  
+
+ 
+</div>
+
+<div class="descCarta inactive" id="popup">
+    <span>muda</span>
 </div>

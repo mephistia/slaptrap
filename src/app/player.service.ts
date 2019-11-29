@@ -14,11 +14,8 @@ export class PlayerService {
   constructor(private messageService: MessageService) { }
 
   getPlayer(): Observable<Player>{
-     // retornar player de verdade se estiver logado
 
-        
-    console.log("Equipadas Mesmo? Segunda checagem: " + PLAYER.cartasEquipadas.filter( carta => carta.isEquipped).toString());
-    console.log("Possuídas mesmo? Segunda checagem: " + PLAYER.cartasInventario.filter( carta => carta.isOwned).toString());
+     // [...] retornar player de verdade se estiver logado
 
     this.messageService.add(PLAYER.cartasEquipadas[0].toString());
     this.messageService.add(PLAYER.cartasEquipadas[1].toString());

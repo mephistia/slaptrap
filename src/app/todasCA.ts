@@ -2,6 +2,7 @@ import {Naipe} from './carta';
 import {Valor} from './carta';
 import {cartaArmadilha} from './cartaArmadilha';
 
+
 export class todasCA{
     cartas: cartaArmadilha[] =  [];
 

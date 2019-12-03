@@ -51,6 +51,7 @@ export class JogoComponent implements OnInit {
 
 
   getPlayer1(): void{
+    // pegar id 0 para o jogador (mudar para id do jogador logado)
     this.playerService.getPlayer().subscribe(player => {this.player1 = player});
   }
 
@@ -123,7 +124,7 @@ export class JogoComponent implements OnInit {
 
   // pc tentar bater
   tentarBater():boolean{
-    let espera:number = this.randomEntre(200,1000);
+    let espera:number = this.randomEntre(600,1500);
 
     // tentar bater se for um valor válido
     if (this.contador == <number>this.cartaAtual.valor){
@@ -146,14 +147,14 @@ export class JogoComponent implements OnInit {
 
               // adicionar o ataque do PC
               if (this.cartasPC[i].jogadorAtaca){ // "jogador" aqui é o pc, que ataca o jogador em si
-                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 2;
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 3;
                 this.vidaPlayer -= ataque;
                 document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";  
               }
             
               // se ataca a si mesmo:
               if (this.cartasPC[i].inimAtaca){ // inimigo nesse caso é o player
-                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 2;
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 3;
                 this.vidaInimigo -= ataque;
                 document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";  
               }
@@ -173,17 +174,24 @@ export class JogoComponent implements OnInit {
           }
         }
 
-          // se não...
-          if (!entrouArmadilha && this.contador == <number>this.cartaAtual.valor){
-            let ataque = this.cartasPilha * 2;
-            this.vidaPlayer -= ataque;
-            document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%"; // diminui barra da vida
+        // se não...
+        if (!entrouArmadilha && this.contador == <number>this.cartaAtual.valor){
+          let ataque = this.cartasPilha * 3;
+          this.vidaPlayer -= ataque;
+          document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%"; // diminui barra da vida
   
-          }
+        }
+        // se não foi na armadilha e nem é igual ao valor do contador
+        else if (!entrouArmadilha && this.contador!= <number>this.cartaAtual.valor){
+          // mostrar feedback
+          document.getElementById("popup").innerHTML = '<span style="color:black;"> Clicou errado! </span>';
+          this.mostrar("popup");
+          window.setTimeout(()=>{this.esconder("popup");},900);
+        }
 
-          this.reset();
+        this.reset();
     
-          return true;
+        return true;
 
         }
 
@@ -215,14 +223,14 @@ export class JogoComponent implements OnInit {
 
               // adicionar o ataque do PC
               if (this.cartasPC[i].jogadorAtaca){ // "jogador" aqui é o pc, que ataca o jogador em si
-                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 2;
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 3;
                 this.vidaPlayer -= ataque;
                 document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";  
               }
             
               // se ataca a si mesmo:
               if (this.cartasPC[i].inimAtaca){ // inimigo nesse caso é o player
-                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 2;
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 3;
                 this.vidaInimigo -= ataque;
                 document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";  
               }
@@ -244,11 +252,20 @@ export class JogoComponent implements OnInit {
 
           // se não...
           if (!entrouArmadilha && this.contador == <number>this.cartaAtual.valor){
-            let ataque = this.cartasPilha * 2;
+            let ataque = this.cartasPilha * 3;
             this.vidaPlayer -= ataque;
             document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%"; // diminui barra da vida
   
           }
+          
+          // se não foi na armadilha e nem é igual ao valor do contador
+          else if (!entrouArmadilha && this.contador!= <number>this.cartaAtual.valor){
+            // mostrar feedback
+            document.getElementById("popup").innerHTML = '<span style="color:black;"> Clicou errado! </span>';
+            this.mostrar("popup");
+            window.setTimeout(()=>{this.esconder("popup");},900);
+          }
+
             this.reset();
             return true;
           }
@@ -409,14 +426,14 @@ export class JogoComponent implements OnInit {
 
               // adicionar o ataque do jogador
               if (this.player1.cartasEquipadas[i].jogadorAtaca){
-                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 2;
+                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 3;
                 this.vidaInimigo -= ataque;
                 document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";  
               }
             
               // se ataca a si mesmo:
               if (this.player1.cartasEquipadas[i].inimAtaca){
-                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 2;
+                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 3;
                 this.vidaPlayer -= ataque;
                 document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";  
               }
@@ -446,9 +463,17 @@ export class JogoComponent implements OnInit {
         // se não entrar...
         if (!entrouArmadilha && this.contador == <number>this.cartaAtual.valor){
           
-        let ataque = this.cartasPilha * 2;
+        let ataque = this.cartasPilha * 3;
         this.vidaInimigo -= ataque;
         document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";
+        }
+
+        // se não foi na armadilha e nem é igual ao valo do contador
+        else if (!entrouArmadilha && this.contador!= <number>this.cartaAtual.valor){
+          // mostrar feedback
+          document.getElementById("popup").innerHTML = '<span style="color:black;">Clicou errado! </span>';
+          this.mostrar("popup");
+          window.setTimeout(()=>{this.esconder("popup");},1500);
         }
 
         this.reset();
@@ -459,6 +484,7 @@ export class JogoComponent implements OnInit {
     }
 
     console.log("Não conseguiu clicar");
+
     
     return false;
 
@@ -625,10 +651,12 @@ export class JogoComponent implements OnInit {
   mostrarCartaUsada(Player1ou2: number, numCarta: number){ 
     // pega o elemento de "pop-up" e mostra a descrição da carta
     if (Player1ou2 == 1){
-      document.getElementById("popup").innerHTML = '<span style="color: black;">' + this.player1.cartasEquipadas[numCarta].desc + '</span>';
+      document.getElementById("popup").innerHTML = '<span style="color: black;">' + this.player1.cartasEquipadas[numCarta].desc  +
+      '<span style="font-weight:bold; color:black;"><br>' +  this.player1.nome + '</span> </span>';
     }
     else {
-      document.getElementById("popup").innerHTML = '<span style="color: black;">' + this.cartasPC[numCarta].desc + '</span>';
+      document.getElementById("popup").innerHTML = '<span style="color: black;">' + this.cartasPC[numCarta].desc +
+      '<span style="font-weight:bold; color:black;"><br>PC</span>' + '</span>';
     }
 
     this.mostrar("popup");

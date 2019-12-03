@@ -6,16 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  // cria variaveis
-  
   constructor() {
-
-    // atribui valores
-
   }
-
-
-  // coloca funções
-
 }

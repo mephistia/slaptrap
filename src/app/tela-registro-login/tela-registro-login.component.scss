@@ -1,0 +1,65 @@
+#main{
+    overflow: hidden;
+    margin:  0 auto;
+    max-width: 650px;
+    background-color: #424B54;
+
+    position: relative;
+    height: 100vh;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.inactive{
+    display: none;
+}
+
+
+.btnGrande{
+    padding: 1.5rem 1rem;
+    font-size: calc(9pt + 1vh);   
+    width: 75%;
+}
+
+.btnMedio, .btnGrande{
+    background-color: #FF5A5F;
+    margin: 2.5vh auto;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    display: block;
+}
+
+.btnMedio:hover, .btnGrande:hover{
+    opacity: 0.5;
+}
+
+.btnMedio{
+    padding: 1rem;
+    font-size: calc(8pt + 1vh);
+    width: 60%;
+}
+
+#entrar{
+    background-color: #A05359;
+}
+
+.containerSocial{  
+    background-color: #3A434B;
+    margin: 2rem;
+    padding: 3rem;
+}
+
+.containerSocial > span{
+    font-family: 'Roboto', sans-serif;
+
+}
+
+ion-icon{
+    margin: 0 5px;
+    float: left;
+}

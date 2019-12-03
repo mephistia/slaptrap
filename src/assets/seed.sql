@@ -1,0 +1,3 @@
+CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT,nome TEXT,moedasAcumuladas INTEGER,moedasAtuais INTEGER,carta1 INTEGER,carta2 INTEGER,carta3 INTEGER);
+INSERT or IGNORE INTO users(id, nome, moedasAcumuladas, moedasAtuais, carta1, carta2, carta3) VALUES(0,'Você-0',0,0,0,1,2);
+INSERT or IGNORE INTO users(id, nome, moedasAcumuladas, moedasAtuais, carta1, carta2, carta3) VALUES(1,'Você-1',0,0,2,1,0);

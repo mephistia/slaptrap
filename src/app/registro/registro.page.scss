@@ -1,0 +1,30 @@
+
+.mod{
+    background-color: #424B54;
+    height: 100%;
+    overflow: hidden;
+    margin:  0 auto;
+    max-width: 650px;
+    padding: 2rem;
+
+}
+
+body{
+    background-color: #424B54;
+}
+
+ion-item  *{
+    font-family: 'Roboto', sans-serif!important;
+    color: black!important;
+}
+
+.botao{
+    padding: 1rem;
+    background-color: #FF5A5F;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.inner-scroll > *, .inner-scroll{
+    background-color: #424B54!important;
+}

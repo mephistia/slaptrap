@@ -1,0 +1,24 @@
+<app-meu-header></app-meu-header>
+
+<ion-content padding>
+  <div class="mod">
+    <ion-card-content>
+        <ion-item>
+          <ion-label floating>Nome</ion-label>
+          <ion-input type="text" [(ngModel)]="user.nome"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Email</ion-label>
+          <ion-input type="email" [(ngModel)]="user.email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Senha</ion-label>
+          <ion-input type="password" [(ngModel)]="user.senha"></ion-input>
+        </ion-item>
+      </ion-card-content>
+      <ion-row>
+        <button ion-button (click)="registrar()" class="botao">Registrar</button>
+      </ion-row>
+  </div>
+ 
+</ion-content>

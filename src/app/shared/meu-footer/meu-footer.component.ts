@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PlayerService } from '../player.service';
-import { Player } from '../player';
+import { PlayerService } from '../../player.service';
+import { Player } from '../../player';
+import { Events } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-meu-footer',
@@ -11,8 +13,13 @@ export class MeuFooterComponent implements OnInit {
   player1: Player;
   auth: boolean;
 
-  constructor(private playerService: PlayerService) { 
+  constructor(private playerService: PlayerService, public events: Events) { 
     this.auth = false; // teste
+
+    // quando registrou, fica true
+    events.subscribe('registrou', () => {
+      this.auth = true;
+    });
   }
 
   ngOnInit() {
@@ -23,6 +30,7 @@ export class MeuFooterComponent implements OnInit {
     }
     else {
       // pegar da database
+      this.getPlayerMock();
     }
   }
 

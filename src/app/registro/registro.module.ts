@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
-import { HomePage } from './home.page';
+import { IonicModule } from '@ionic/angular';
+
+import { RegistroPageRoutingModule } from './registro-routing.module';
+
+import { RegistroPage } from './registro.page';
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -14,14 +16,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     IonicModule,
     SharedModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-
-      }
-    ])
+    RegistroPageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [RegistroPage]
 })
-export class HomePageModule {}
+export class RegistroPageModule {}

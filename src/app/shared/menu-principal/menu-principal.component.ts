@@ -27,6 +27,10 @@ export class MenuPrincipalComponent implements OnInit {
 
   }
 
+  jogo(){
+    this.router.navigateByUrl('/game');
+  }
+
 
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import  {Baralho } from '../baralho';
+import {Baralho } from '../baralho';
 import { Carta, Naipe } from '../carta';
 import { Valor } from '../carta';
 import { PlayerService } from '../player.service';
@@ -7,6 +7,7 @@ import { Player } from '../player';
 import { MessageService } from '../message.service';
 import { todasCA } from '../todasCA';
 import { cartaArmadilha } from '../cartaArmadilha';
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class JogoComponent implements OnInit {
   //                                       ^
   //                                       |
   // atribui valores                       |
-  constructor(private playerService: PlayerService, public messageService: MessageService) {  //                      |
+  constructor(private playerService: PlayerService, public messageService: MessageService, private vibra: Vibration) { 
     this.versusPC = true;     // para testes   
     this.Monte = new Baralho;
     this.cartaAtual = null; //começa sem carta
@@ -315,6 +316,8 @@ export class JogoComponent implements OnInit {
 
     // verificar se é a vez do jogador
     if (document.getElementById("monteCartas").classList.contains("podeClicar")){
+      // vibrar
+      this.vibra.vibrate(300);
 
       // remover a "vez"
       document.getElementById("monteCartas").classList.remove("podeClicar");

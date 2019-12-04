@@ -17,6 +17,8 @@ import { FB_CONFIG } from './fbconfig';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { Vibration } from '@ionic-native/vibration/ngx';
+
 
 
 
@@ -42,7 +44,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     SQLite,
-    SQLitePorter
+    SQLitePorter,
+    Vibration
   ],
   bootstrap: [AppComponent]
 })

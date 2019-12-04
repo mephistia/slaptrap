@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RegistroLoginPageRoutingModule } from './registro-login-routing.module';
 
 import { RegistroLoginPage } from './registro-login.page';
-import { TelaRegistroLoginComponent } from '../tela-registro-login/tela-registro-login.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -15,8 +15,9 @@ import { TelaRegistroLoginComponent } from '../tela-registro-login/tela-registro
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     RegistroLoginPageRoutingModule
   ],
-  declarations: [RegistroLoginPage, TelaRegistroLoginComponent]
+  declarations: [RegistroLoginPage]
 })
 export class RegistroLoginPageModule {}

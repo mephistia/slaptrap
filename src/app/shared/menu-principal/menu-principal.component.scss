@@ -9,13 +9,14 @@ body{
     margin:  0 auto;
     max-width: 650px;
     background-color: #424B54;
+    padding: 2rem;
+
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 96px;
     grid-gap: 1rem;
     justify-items: center;
     align-items: center;
-    padding: 2rem;
 
 
 }

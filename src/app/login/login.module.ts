@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { GameOverPageRoutingModule } from './game-over-routing.module';
+import { LoginPageRoutingModule } from './login-routing.module';
 
-import { GameOverPage } from './game-over.page';
+import { LoginPage } from './login.page';
 import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   imports: [
@@ -15,8 +16,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     IonicModule,
     SharedModule,
-    GameOverPageRoutingModule
+    LoginPageRoutingModule
   ],
-  declarations: [GameOverPage]
+  declarations: [LoginPage]
 })
-export class GameOverPageModule {}
+export class LoginPageModule {}

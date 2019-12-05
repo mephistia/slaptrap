@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../../player.service';
 import { Player } from '../../player';
 import { Events } from '@ionic/angular';
+import { DBProviderService } from '../../dbprovider.service';
 
 
 @Component({
@@ -13,12 +14,14 @@ export class MeuFooterComponent implements OnInit {
   player1: Player;
   auth: boolean;
 
-  constructor(private playerService: PlayerService, public events: Events) { 
+  constructor(private playerService: PlayerService, public events: Events, private dbServ: DBProviderService) { 
     this.auth = false; // teste
 
     // quando registrou, fica true
-    events.subscribe('registrou', () => {
+    events.subscribe('logou', () => {
       this.auth = true;
+      this.player1.nome = this.dbServ.user.nome;
+      this.player1.moedasAtual = this.dbServ.user.moedasTotais;
     });
   }
 
@@ -28,10 +31,7 @@ export class MeuFooterComponent implements OnInit {
     if (!this.auth){
       this.getPlayerMock(); // colocar o mock
     }
-    else {
-      // pegar da database
-      this.getPlayerMock();
-    }
+
   }
 
   getPlayerMock(){

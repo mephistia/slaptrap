@@ -8,6 +8,10 @@ import { MessageService } from '../message.service';
 import { todasCA } from '../todasCA';
 import { cartaArmadilha } from '../cartaArmadilha';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { Events } from '@ionic/angular';
+import { DBProviderService } from '../dbprovider.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -34,11 +38,12 @@ export class JogoComponent implements OnInit {
   vidaInimigo: number;
   cartasPilha: number;
   foiJogador: boolean;
-  versusPC: boolean; // importa da seleção do menu
-  //                                       ^
-  //                                       |
-  // atribui valores                       |
-  constructor(private playerService: PlayerService, public messageService: MessageService, private vibra: Vibration) { 
+  auth: boolean;
+  versusPC: boolean; 
+  tempo: number;
+  timer;
+ 
+  constructor(private playerService: PlayerService, public messageService: MessageService, private vibra: Vibration, public events: Events, private dbServ: DBProviderService, private router: Router) { 
     this.versusPC = true;     // para testes   
     this.Monte = new Baralho;
     this.cartaAtual = null; //começa sem carta
@@ -48,17 +53,29 @@ export class JogoComponent implements OnInit {
     this.vidaInimigo = 100;
     this.vidaPlayer = 100;
     this.cartasPilha = 0;
+    this.auth = false; // teste
+
+     // quando registrou, fica true
+     events.subscribe('logou', () => {
+      this.auth = true;
+      this.player1.nome = this.dbServ.user.nome;
+      this.messageService.messages[0] = this.dbServ.user.cartasEquipadas[0].toString();
+      this.messageService.messages[1] = this.dbServ.user.cartasEquipadas[1].toString();
+      this.messageService.messages[2] = this.dbServ.user.cartasEquipadas[2].toString();
+    });
   }
 
 
   getPlayer1(): void{
-    // pegar id 0 para o jogador (mudar para id do jogador logado)
     this.playerService.getPlayer().subscribe(player => {this.player1 = player});
   }
 
   ngOnInit() {
 
+    if (!this.auth){
     this.getPlayer1(); // pega o player
+    }
+
 
     // se estiver jogando contra pc
     if (this.versusPC){
@@ -81,12 +98,26 @@ export class JogoComponent implements OnInit {
 
 
       this.turnoPlayer = true; // começa pela vez do jogador
+
+      // iniciar timer, aumenta o valor de Tempo a cada segundo
+      this.timer = setInterval(() => this.tempo++, 1000);
+
     }
     
   }
 
   gameOver(){
     // chama a tela de resultados 
+    clearInterval(this.timer);
+    let frase: string;
+    if (this.vidaInimigo <= 0){
+      frase = "Você venceu!";
+    }
+    else {
+      frase = "Você perdeu!";
+    }
+    this.events.publish('gameOver',this.tempo, frase); // passa os parâmetros
+    this.router.navigateByUrl('/game-over');
   }
 
 

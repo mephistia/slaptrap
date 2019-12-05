@@ -23,6 +23,7 @@ export class RegistroPage implements OnInit {
   }
 
   registrar(){
+    console.log("Nome: " + this.user.nome)
     this.dbServ.registerUser(this.user).then(_ => {
       this.events.publish('registrou');
       this.mostrarToast();

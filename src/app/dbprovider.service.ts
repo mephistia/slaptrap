@@ -40,17 +40,19 @@ export class DBProviderService {
   // criar user (método p/ uso externo)
   async registerUser(user: User){
     this.register(user).then( ref => { // quando terminar a função assíncrona, chamar a ref e registrar dados lógicos
-      console.log(ref.result.uid + ' registrado'); // debug
+      console.log(ref.result.user.uid + ' registrado'); // debug
+      //console.log(ref.result);
+      
 
       // criar o user
       this.user = new User();
-      this.user.uid = ref.result.uid;
+      this.user.uid = ref.result.user.uid;
       this.user.nome = user.nome;
       this.user.email = user.email;
-      this.user.cartasInventario = user.cartasInventario;
-      this.user.cartasEquipadas = user.cartasEquipadas;
-      this.user.moedasAcumuladas = user.moedasAcumuladas;
-      this.user.moedasTotais = user.moedasTotais;
+      this.user.cartasInventario = [0, 1, 2]; // cartas iniciais
+      this.user.cartasEquipadas = [0, 1, 2];
+      this.user.moedasAcumuladas = 0;
+      this.user.moedasTotais = 0;
 
       // envia para a database, depois disso retorna e atualiza de novo com o id dos >dados< gravados (relaciona com o usuário autenticado)
       this.saveUserData(this.user).then(_ => {
@@ -61,5 +63,40 @@ export class DBProviderService {
     });
   }
 
+  login(email: string, senha: string, toastCtrl, router, events,  callback?){
+    this.execLogin(email,senha).then(ref => {
+      if (ref.error){
+        throw "Usuário inválido";
+      } else {
+        return this.usrListRef.valueChanges().subscribe(lst =>{
+          const user = lst.filter(value => {
+            return value.uid === ref.result.user.uid;
+          })[0];
+
+          console.log(JSON.stringify(user));
+          this.user = user;
+          if (callback){
+            console.log(callback);
+            callback(toastCtrl, router, events);
+            console.log("terminou callback");
+          }
+        });
+      }
+    });
+  }
+
+  private async execLogin(email: string, senha: string){
+    try {
+      return <UserResponse>{
+        result: await this.fbAuth.auth.signInWithEmailAndPassword(email,senha)
+      };
+    }
+    catch (e){
+      console.log(JSON.stringify(e));
+      return <UserResponse>{
+        error: e
+      };
+     }
+}
 
 }

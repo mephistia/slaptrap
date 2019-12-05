@@ -19,6 +19,7 @@ export interface UserResponse{
     result?: {
         email?: string;
         uid?: string;
+        user?: any;
     };
 
     error?: {

@@ -20,4 +20,8 @@ export class TelaRegistroLoginComponent implements OnInit {
   registrar(){
     this.router.navigateByUrl('/registro');
   }
+
+  logar(){
+    this.router.navigateByUrl('/login');
+  }
 }

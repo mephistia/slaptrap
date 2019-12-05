@@ -4,8 +4,7 @@ import { PLAYER } from './mock-player';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { DatabaseService } from './database.service';
-import { User } from './database.service';
-import { cartaArmadilha } from './cartaArmadilha';
+
 
 
 

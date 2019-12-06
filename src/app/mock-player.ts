@@ -6,7 +6,7 @@ let cartas: todasCA = new todasCA;
 
 
 
-export const PLAYER: Player = new Player("Você", i, 0, 0, cartas.cartas.slice(0,4),cartas.cartas.slice(0,3));
+export const PLAYER: Player = new Player("Você", i.toString(), 0, 0, cartas.cartas.slice(0,4),cartas.cartas.slice(0,3));
 
 for (let i:number = 0; i < PLAYER.cartasEquipadas.length; i++){
     // 'equipar' cada carta 

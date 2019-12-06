@@ -110,13 +110,19 @@ export class JogoComponent implements OnInit {
     // chama a tela de resultados 
     clearInterval(this.timer);
     let frase: string;
+    let moedasAdd: number;
+
     if (this.vidaInimigo <= 0){
       frase = "Você venceu!";
+      moedasAdd = 15;
     }
     else {
       frase = "Você perdeu!";
+      moedasAdd = 5;
     }
-    this.events.publish('gameOver',this.tempo, frase); // passa os parâmetros
+    this.player1.moedasAtual += moedasAdd;
+    this.player1.moedasTotal += this.player1.moedasAtual;
+    this.events.publish('gameOver',this.tempo, frase, moedasAdd); // passa os parâmetros
     this.router.navigateByUrl('/game-over');
   }
 

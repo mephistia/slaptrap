@@ -1,0 +1,123 @@
+
+
+.title span{
+    color: white;
+    font-size: calc(12pt + 1vh);
+    text-align: center;
+    display: block;
+    transform: translateY(-50px);
+    //text-shadow: -1px 0  #087E8B, 0 1px  #087E8B, 1px 0  #087E8B, 0 -1px  #087E8B;
+    
+    text-shadow: 1px 1px 0px #087E8B, 2px 2px 0px #087E8B, 3px 3px 0px #087E8B;
+
+}
+
+.subtitle{
+    font-size: calc(10pt + 1vh);
+    display: block;
+    text-align: center;
+}
+
+body {
+    background-color: #424B54;
+}
+
+#main{
+    overflow: hidden;
+    margin:  0 auto;
+    max-width: 650px;
+    background-color: #424B54;
+    position: relative;
+    height: 100%;
+    padding: 2rem;
+
+}
+
+
+.btnMedio{
+    background-color: #FF5A5F;
+    margin: 2.5vh auto;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    display: block;
+}
+
+.btnMedio:hover{
+    opacity: 0.5;
+}
+
+.btnMedio{
+    padding: 1rem;
+    font-size: calc(8pt + 1vh);
+    width: 80%;
+}
+
+.verde{
+    background-color: #087E8B!important;
+}
+
+.area{
+    padding: 2em 0 0;
+}
+
+.texto{
+    font-size: calc(8pt + 1vh);
+    text-align: center;
+}
+
+.dado{
+    display: block;
+    float: right;
+
+}
+
+.greyIcon{
+    color: #3A434B;
+}
+
+/*#bolinha::before{
+    position: absolute;
+    content: '';
+    height: 1px;
+    display: block;
+
+    background-color: white;
+    border-radius: 100%;
+    padding: 1.5vh;
+    transform: translate(-55px, -2px);
+    text-align: center;
+    margin: 0 5px;
+}*/
+
+
+.bolinha{
+    background-color: white;
+    border-radius: 100%;
+    padding: 4px;
+    margin: 0 10px 0 2px;
+    display: inline-flex;
+}
+
+ion-icon{
+    float: left;
+    vertical-align: middle;
+}
+
+
+
+.wrapper{
+    background-color: #3A434B;
+    padding: 2em 1em;
+    border: solid 1px #FF5A5F;
+}
+
+.stats{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.margem{
+    margin-right: 10px;
+}

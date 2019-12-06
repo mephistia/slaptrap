@@ -8,6 +8,7 @@ import { GameOverPageRoutingModule } from './game-over-routing.module';
 
 import { GameOverPage } from './game-over.page';
 import { SharedModule } from '../shared/shared.module';
+import { GameOverTelaComponent } from '../game-over-tela/game-over-tela.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     GameOverPageRoutingModule
   ],
-  declarations: [GameOverPage]
+  declarations: [GameOverPage, GameOverTelaComponent]
 })
 export class GameOverPageModule {}

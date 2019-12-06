@@ -1,3 +1,25 @@
-<p>
-  game-over-tela works!
-</p>
+<div id="main">
+
+  <div class="wrapper">
+    <div class="title">
+        <span>{{fraseOver}}</span>
+      </div>
+      <div class="stats">
+        <div class="texto"><ion-icon name="time" size="large" class="margem"></ion-icon>Tempo:</div>
+        <span class="dado">{{minutos}}:{{segundos}}</span>
+      </div>
+     
+      <div class="stats">
+        <div class="texto"><div class="bolinha"><ion-icon name="logo-usd" size="medium" class="greyIcon"></ion-icon></div><span>Moedas:</span></div>
+        <span class="dado">{{moedas}}</span>
+      </div>
+  </div>
+
+  <div class="area">
+    <div class="subtitle">Dobre suas Recompensas!</div>
+    <div class="btnMedio verde"><ion-icon name="play-circle" size="large"></ion-icon><span>Assista ao Vídeo</span></div>
+  </div>
+  <div class="btnMedio embaixo" (click)="voltaInicio()"><ion-icon name="arrow-round-back" size="large"></ion-icon><span>Voltar</span></div>
+
+  
+</div>

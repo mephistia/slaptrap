@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Events } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -15,27 +15,34 @@ export class GameOverTelaComponent implements OnInit {
   segundos: string;
   isOver: boolean;
   moedas: string;
+  timer: any;
+  dataReceived: string[];
 
 
-  constructor(public events: Events, private router: Router) {
+
+  constructor(public events: Events, private router: Router, private ngZone: NgZone) {
     this.isOver = false;
-
+    this.minutos = '00'
+    this.segundos = '00';
+    this.fraseOver = 'Jogo não iniciado';
+    this.moedas = '0';
     
-    events.subscribe('game-over', (tempo, frase, moedas) => {
-      this.isOver = true;
-      this.fraseOver = frase;
-      this.moedas = moedas.toString();
-      this.minutos = Math.floor(tempo/60).toString();
-      this.segundos = (tempo % 60).toString();
-    })
+    this.events.subscribe('game-over', data => {
 
-    if (!this.isOver){
-      this.minutos = '00'
-      this.segundos = '00';
-      this.fraseOver = 'Jogo não iniciado';
-      this.moedas = '0';
-    }
-   
+      this.ngZone.run(() => {
+        this.isOver = true;
+        this.fraseOver = data[1];
+        this.moedas = data[2];
+        this.minutos = Math.floor(<number>data[0]/60).toString();
+        this.segundos = (<number>data[0] % 60).toString();
+        this.dataReceived = data;
+      });
+
+
+      console.log("Recebeu: " + data[0] + ", " + data[1] + ", " + data[2]);
+    
+    });
+
 
    }
 
@@ -46,5 +53,7 @@ export class GameOverTelaComponent implements OnInit {
   voltaInicio(){
     this.router.navigateByUrl('/');
   }
+
+
 
 }

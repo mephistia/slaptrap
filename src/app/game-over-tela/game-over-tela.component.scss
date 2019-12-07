@@ -5,10 +5,9 @@
     font-size: calc(12pt + 1vh);
     text-align: center;
     display: block;
-    transform: translateY(-50px);
-    //text-shadow: -1px 0  #087E8B, 0 1px  #087E8B, 1px 0  #087E8B, 0 -1px  #087E8B;
-    
+    transform: translateY(-50px);   
     text-shadow: 1px 1px 0px #087E8B, 2px 2px 0px #087E8B, 3px 3px 0px #087E8B;
+    margin-bottom: -2rem;
 
 }
 
@@ -73,22 +72,10 @@ body {
 }
 
 .greyIcon{
-    color: #3A434B;
+    color: #3A434B!important;
 }
 
-/*#bolinha::before{
-    position: absolute;
-    content: '';
-    height: 1px;
-    display: block;
 
-    background-color: white;
-    border-radius: 100%;
-    padding: 1.5vh;
-    transform: translate(-55px, -2px);
-    text-align: center;
-    margin: 0 5px;
-}*/
 
 
 .bolinha{
@@ -102,6 +89,7 @@ body {
 ion-icon{
     float: left;
     vertical-align: middle;
+    color: white;
 }
 
 

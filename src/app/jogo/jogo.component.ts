@@ -54,6 +54,7 @@ export class JogoComponent implements OnInit {
     this.vidaPlayer = 100;
     this.cartasPilha = 0;
     this.auth = false; // teste
+    this.tempo = 0;
 
      // quando registrou, fica true
      events.subscribe('logou', () => {
@@ -71,6 +72,7 @@ export class JogoComponent implements OnInit {
   }
 
   ngOnInit() {
+
 
     if (!this.auth){
     this.getPlayer1(); // pega o player
@@ -100,7 +102,13 @@ export class JogoComponent implements OnInit {
       this.turnoPlayer = true; // começa pela vez do jogador
 
       // iniciar timer, aumenta o valor de Tempo a cada segundo
-      this.timer = setInterval(() => this.tempo++, 1000);
+      this.timer = setInterval(() => {
+        this.tempo++; 
+        console.log("Tempo: " + this.tempo);
+        if (this.vidaInimigo <= 0 || this.vidaPlayer <= 0){
+          this.gameOver();
+        }
+       }, 1000);
 
     }
     
@@ -122,7 +130,9 @@ export class JogoComponent implements OnInit {
     }
     this.player1.moedasAtual += moedasAdd;
     this.player1.moedasTotal += this.player1.moedasAtual;
-    this.events.publish('gameOver',this.tempo, frase, moedasAdd); // passa os parâmetros
+    let data: string[] = [this.tempo.toString(),frase,moedasAdd.toString()] // envia ja como string
+    this.events.publish('gameOver', data); // passa os parâmetros
+    console.log("valores passados no Event: " + this.tempo + ", " + frase + ", " + moedasAdd);
     this.router.navigateByUrl('/game-over');
   }
 
@@ -185,14 +195,14 @@ export class JogoComponent implements OnInit {
 
               // adicionar o ataque do PC
               if (this.cartasPC[i].jogadorAtaca){ // "jogador" aqui é o pc, que ataca o jogador em si
-                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 3;
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 4;
                 this.vidaPlayer -= ataque;
                 document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";  
               }
             
               // se ataca a si mesmo:
               if (this.cartasPC[i].inimAtaca){ // inimigo nesse caso é o player
-                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 3;
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 4;
                 this.vidaInimigo -= ataque;
                 document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";  
               }
@@ -261,14 +271,14 @@ export class JogoComponent implements OnInit {
 
               // adicionar o ataque do PC
               if (this.cartasPC[i].jogadorAtaca){ // "jogador" aqui é o pc, que ataca o jogador em si
-                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 3;
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 4;
                 this.vidaPlayer -= ataque;
                 document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";  
               }
             
               // se ataca a si mesmo:
               if (this.cartasPC[i].inimAtaca){ // inimigo nesse caso é o player
-                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 3;
+                let ataque = (this.cartasPilha * this.cartasPC[i].qtdAtaque) * 4;
                 this.vidaInimigo -= ataque;
                 document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";  
               }
@@ -354,7 +364,6 @@ export class JogoComponent implements OnInit {
     // verificar se é a vez do jogador
     if (document.getElementById("monteCartas").classList.contains("podeClicar")){
       // vibrar
-      this.vibra.vibrate(300);
 
       // remover a "vez"
       document.getElementById("monteCartas").classList.remove("podeClicar");
@@ -453,6 +462,8 @@ export class JogoComponent implements OnInit {
       document.getElementById("cartaPilha").classList.remove("clicavel");
       
       if (foiJogador) {
+        this.vibra.vibrate(200);
+
         // checar cartas-armadilha
         let entrouArmadilha: boolean = false;
         console.log("Jogador clicou na pilha!");
@@ -466,14 +477,14 @@ export class JogoComponent implements OnInit {
 
               // adicionar o ataque do jogador
               if (this.player1.cartasEquipadas[i].jogadorAtaca){
-                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 3;
+                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 4;
                 this.vidaInimigo -= ataque;
                 document.getElementById("vidaInimigo").style.width = this.vidaInimigo + "%";  
               }
             
               // se ataca a si mesmo:
               if (this.player1.cartasEquipadas[i].inimAtaca){
-                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 3;
+                let ataque = (this.cartasPilha * this.player1.cartasEquipadas[i].qtdAtaque) * 4;
                 this.vidaPlayer -= ataque;
                 document.getElementById("vidaJogador").style.width = this.vidaPlayer + "%";  
               }
@@ -719,5 +730,10 @@ export class JogoComponent implements OnInit {
     document.getElementById(elementID).classList.remove("transparent");
   }
 
+
+  // teste zerar vida
+  teste(){
+    this.vidaInimigo = 0;
+  }
 
 }

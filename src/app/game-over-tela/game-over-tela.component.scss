@@ -62,8 +62,12 @@ body {
 
 .texto{
     font-size: calc(8pt + 1vh);
-    text-align: center;
+
+    display: flex;
+    align-items: center;
 }
+
+
 
 .dado{
     display: block;
@@ -82,7 +86,7 @@ body {
     background-color: white;
     border-radius: 100%;
     padding: 4px;
-    margin: 0 10px 0 2px;
+    margin: 0 10px 0 3px;
     display: inline-flex;
 }
 

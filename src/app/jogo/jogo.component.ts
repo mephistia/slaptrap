@@ -130,10 +130,16 @@ export class JogoComponent implements OnInit {
     }
     this.player1.moedasAtual += moedasAdd;
     this.player1.moedasTotal += this.player1.moedasAtual;
-    let data: string[] = [this.tempo.toString(),frase,moedasAdd.toString()] // envia ja como string
-    this.events.publish('gameOver', data); // passa os parâmetros
-    console.log("valores passados no Event: " + this.tempo + ", " + frase + ", " + moedasAdd);
-    this.router.navigateByUrl('/game-over');
+    let data: string[] = [] // envia ja como string
+    data.push(this.tempo.toString());
+    data.push(frase);
+    data.push(moedasAdd.toString());
+
+    // precisa enviar os dados depois de carregar a página:
+    this.router.navigateByUrl('/game-over').then(() => {
+      this.events.publish('gameOver', data); 
+      console.log("enviou dados");
+    });
   }
 
 

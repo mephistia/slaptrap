@@ -16,18 +16,18 @@ export class GameOverTelaComponent implements OnInit {
   isOver: boolean;
   moedas: string;
   timer: any;
-  dataReceived: string[];
 
 
 
   constructor(public events: Events, private router: Router, private ngZone: NgZone) {
     this.isOver = false;
+
     this.minutos = '00'
     this.segundos = '00';
-    this.fraseOver = 'Jogo não iniciado';
-    this.moedas = '0';
+    this.fraseOver = 'aaaaaaa';
+    this.moedas = '22';
     
-    this.events.subscribe('game-over', data => {
+    this.events.subscribe('gameOver', data => {
 
       this.ngZone.run(() => {
         this.isOver = true;
@@ -35,19 +35,15 @@ export class GameOverTelaComponent implements OnInit {
         this.moedas = data[2];
         this.minutos = Math.floor(<number>data[0]/60).toString();
         this.segundos = (<number>data[0] % 60).toString();
-        this.dataReceived = data;
       });
 
 
-      console.log("Recebeu: " + data[0] + ", " + data[1] + ", " + data[2]);
+      console.log("Recebeu: " + this.minutos + ":" + this.segundos + ", " + this.moedas + ", " + this.fraseOver);
     
     });
-
-
    }
 
   ngOnInit() {
-
   }
 
   voltaInicio(){

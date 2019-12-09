@@ -6,6 +6,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { OpcoesPageModule } from './opcoes/opcoes.module';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
@@ -33,6 +35,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
   imports: [BrowserModule, 
   IonicModule.forRoot(),
   AppRoutingModule,
+  OpcoesPageModule,
   HttpClientModule,
   AngularFireModule.initializeApp(FB_CONFIG),
   AngularFireAuthModule,

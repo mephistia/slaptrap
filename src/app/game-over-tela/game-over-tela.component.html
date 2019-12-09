@@ -2,16 +2,16 @@
 
   <div class="wrapper">
     <div class="title">
-        <span>{{fraseOver}}</span>
+        <span id="fraseOver">{{fraseOver}}</span>
       </div>
       <div class="stats">
-        <div class="texto"><ion-icon name="time" size="large" class="margem"></ion-icon>Tempo:</div>
-        <span class="dado">{{minutos}}:{{segundos}}</span>
+        <div class="texto"><ion-icon name="time" size="large" class="margem"></ion-icon><span>Tempo:</span></div>
+        <span class="dado"><span id="minutos">{{minutos}}</span>:<span id="segundos">{{segundos}}</span></span>
       </div>
      
       <div class="stats">
         <div class="texto"><div class="bolinha"><ion-icon name="logo-usd" size="medium" class="greyIcon"></ion-icon></div><span>Moedas:</span></div>
-        <span class="dado">{{moedas}}</span>
+        <span class="dado"><span id="moedas">{{moedas}}</span></span>
       </div>
   </div>
 

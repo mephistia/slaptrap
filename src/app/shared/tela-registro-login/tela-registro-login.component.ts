@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
+
+
 
 
 @Component({
@@ -9,12 +12,12 @@ import { Router } from '@angular/router';
 })
 export class TelaRegistroLoginComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private navCtrl: NavController) { }
 
   ngOnInit() {}
   
   voltar(){
-    this.router.navigateByUrl('/');
+    this.navCtrl.back();
   }
 
   registrar(){
@@ -24,4 +27,6 @@ export class TelaRegistroLoginComponent implements OnInit {
   logar(){
     this.router.navigateByUrl('/login');
   }
+
+  
 }

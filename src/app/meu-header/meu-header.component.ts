@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { OpcoesPage } from '../opcoes/opcoes.page';
 
 @Component({
   selector: 'app-meu-header',
@@ -7,23 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeuHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public modalCtrl: ModalController
+  ) { }
 
   ngOnInit() {}
 
   
-  carregaOpcoes(){
-    // mostrar opções
-    document.getElementById("telaOpcoes").classList.remove("inactive");
-    document.getElementById("main").classList.add("inactive");
-    document.getElementById("main2").classList.add("inactive");
+  async carregaOpcoes(){
+    console.log("clicou nas opcoes");
+    
+    const modal = await this.modalCtrl.create({
+      component: OpcoesPage,
+      // componentProps: {
+        
+      // }
+    });
+    console.log("Criou o modal");
+
+    return await modal.present();
   }
 
-  fechaOpcoes(){
-    document.getElementById("telaOpcoes").classList.add("inactive");
-    document.getElementById("main").classList.remove("inactive");
-    document.getElementById("main2").classList.remove("inactive");
-
-  }
 }
 

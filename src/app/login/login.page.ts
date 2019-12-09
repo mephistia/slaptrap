@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
 import { DBProviderService } from '../dbprovider.service';
 import { ToastController } from '@ionic/angular';
-import { UserResponse } from '../user';
+import { NavController } from '@ionic/angular';
+
 
 
 
@@ -16,13 +17,19 @@ export class LoginPage implements OnInit {
   email: string;
   senha: string;
 
-  constructor(private router: Router, public events: Events, private dbServ: DBProviderService,private toastCtrl: ToastController) { }
+  constructor(
+    private router: Router, 
+    public events: Events, 
+    private dbServ: DBProviderService,
+    private toastCtrl: ToastController,
+    private navCtrl: NavController
+    ) { }
 
   ngOnInit() {
   }
 
   voltar(){
-    this.router.navigateByUrl('/');
+    this.navCtrl.back();
   }
 
   login(){

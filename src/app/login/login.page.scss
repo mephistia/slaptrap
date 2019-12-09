@@ -18,12 +18,6 @@ ion-item  *{
     color: black!important;
 }
 
-.botao{
-    padding: 1rem;
-    background-color: #FF5A5F;
-    text-align: center;
-    margin: 0 auto;
-}
 
 .inner-scroll > *, .inner-scroll{
     background-color: #424B54!important;
@@ -40,6 +34,7 @@ ion-item  *{
     padding: 1rem;
     font-size: calc(8pt + 1vh);
     width: 60%;
+    line-height: inherit;
 }
 
 .btnMedio:hover{
@@ -49,3 +44,11 @@ ion-item  *{
 ion-icon{
     float: left;
 }
+
+
+ion-icon[ name="arrow-round-back"]{
+    float: left;
+    font-size: 1.5rem;
+}
+
+

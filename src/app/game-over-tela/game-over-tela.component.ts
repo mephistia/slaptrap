@@ -35,6 +35,12 @@ export class GameOverTelaComponent implements OnInit {
         this.moedas = data[2];
         this.minutos = Math.floor(<number>data[0]/60).toString();
         this.segundos = (<number>data[0] % 60).toString();
+        if (this.segundos.length == 1){
+          let zero: string = '0';
+          zero = zero.concat(this.segundos);
+          this.segundos = zero;
+          console.log('Segundos: ' + this.segundos);
+        }
       });
 
 

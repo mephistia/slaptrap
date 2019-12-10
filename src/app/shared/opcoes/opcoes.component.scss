@@ -6,7 +6,7 @@
     background-color: #424B54;
     position: relative;
     height: 100vh;
-    z-index: 999;
+    padding: 0 1.5rem;
 }
 
 
@@ -45,7 +45,7 @@
 
 
 .topo {
-    padding-top: 5%;
+    padding-top: 8%;
 }
 
 
@@ -72,9 +72,22 @@
 
 
 .btnGrande{
-    padding: 1.5rem 1rem;
-    font-size: calc(9pt + 1vh);   
-    max-width: 75%;
+    padding: 1.5rem 0.5rem;
+    font-size: calc(9pt + 1vh);  
+}
+
+.btnPequeno{
+    padding: 0.5rem;
+    font-size: calc(7pt + 1vh);
+    max-width: 48%;
+    display: inline-block;
+    margin: 2.5vh 0 !important;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #classificar::before, #sairConta::before, #voltar::before{
@@ -96,16 +109,15 @@
     opacity: 0.5;
 }
 
-.btnMedio, .btnGrande{
+.btnMedio, .btnGrande, .btnPequeno{
     background-color: #FF5A5F;
     margin: 2.5vh auto;
     border-radius: 5px;
     text-align: center;
     position: relative;
-    display: inherit;
 }
 
-.btnMedio:hover, .btnGrande:hover{
+.btnMedio:hover, .btnGrande:hover, .btnPequeno:hover{
     opacity: 0.5;
 }
 
@@ -118,7 +130,7 @@
 #textoSobre p{
     font-size: 2.2vh;
     font-family: 'Nunito', sans-serif;
-    margin: 1vh 6vh;
+    margin: 1vh 0;
     text-align: justify;
 }
 
@@ -132,4 +144,9 @@
     .separator, .separatorFrase{
         margin: 1.5vh 5vw;
     }
+}
+
+ion-icon{
+    float: left;
+    font-size: 1.5rem!important;
 }

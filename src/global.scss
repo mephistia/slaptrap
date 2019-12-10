@@ -36,3 +36,10 @@
 .modal {
     display: flex !important;
 }
+
+@media only screen and (min-height: 600px) and (min-width: 768px){
+    .sc-ion-modal-md-h {
+        --width: 650px!important;
+        --height: 100vh!important;
+    }
+}

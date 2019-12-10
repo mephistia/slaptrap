@@ -4,8 +4,11 @@
       <div class="separatorFrase">Opções</div>
   </div>
 
-  <div class="btnGrande" id="classificar">Classificar o Jogo</div>
-  <div class="btnGrande naoClica" id="sairConta">Sair da Conta</div>
+  <div class="flex">
+    <div class="btnPequeno" id="classificar">Classificar o Jogo</div>
+    <div class="btnPequeno" id="pararMusica" (click)="toggleMusica()"><ion-icon name="musical-note"></ion-icon>Música {{estado}}</div>  
+  </div>
+   <div class="btnGrande naoClica" id="sairConta">Sair da Conta</div>
 
   <div class="separatorFrase">Sobre</div>
   <div id="textoSobre"><p>

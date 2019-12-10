@@ -10,6 +10,7 @@ import { OpcoesPageModule } from './opcoes/opcoes.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 
@@ -19,7 +20,9 @@ import { FB_CONFIG } from './fbconfig';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 
 
@@ -45,6 +48,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
   providers: [
     StatusBar,
     SplashScreen,
+    NativeAudio,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     SQLite,
     SQLitePorter,
